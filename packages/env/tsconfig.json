@@ -1,0 +1,4 @@
+{
+  "extends": "@devtrails-saas/tsconfig/library.json",
+  "include": ["index.ts"]
+}
