@@ -4,6 +4,7 @@ import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
+import multer from 'fastify-multer'
 import {
   jsonSchemaTransform,
   serializerCompiler,
@@ -39,6 +40,7 @@ import { getOrganizations } from './routes/orgs/get-organizations'
 import { shutdownOrganization } from './routes/orgs/shutdown-organization'
 import { transferOrganization } from './routes/orgs/transfer-organization'
 import { updateOrganization } from './routes/orgs/update-organization'
+import { uploadLogoOrganization } from './routes/orgs/upload-logo'
 import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
 import { getProject } from './routes/projects/get-project'
@@ -50,6 +52,8 @@ import { createTemplate } from './routes/templates/create-template'
 import { getTemplateSection } from './routes/templates/get-template-section'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
+
+app.register(multer.contentParser)
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
@@ -113,6 +117,7 @@ app.register(getOrganizations)
 app.register(updateOrganization)
 app.register(shutdownOrganization)
 app.register(transferOrganization)
+app.register(uploadLogoOrganization)
 
 // Projects Routes
 app.register(createProject)

@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyRequest } from 'fastify'
 import { fastifyPlugin } from 'fastify-plugin'
 
 import { UnauthorizedError } from '@/http/routes/_errors/unauthorized-error'
@@ -44,3 +44,13 @@ export const auth = fastifyPlugin(async (app: FastifyInstance) => {
     }
   })
 })
+
+export const authMiddleware = async (request: FastifyRequest) => {
+  try {
+    const { sub } = await request.jwtVerify<{ sub: string }>()
+
+    request.getCurrentUserId = async () => await sub
+  } catch {
+    throw new UnauthorizedError('Invalid token')
+  }
+}

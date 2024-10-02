@@ -1,6 +1,7 @@
 import 'fastify'
 
 import { Member, Organization } from '@prisma/client'
+import { MulterFile } from 'fastify-multer'
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -9,5 +10,6 @@ declare module 'fastify' {
       organization: Organization
       membership: Member
     }>
+    file?: MulterFile
   }
 }
