@@ -101,9 +101,9 @@ model Organization {
   id                        String        @id @default(uuid())
   name                      String
   slug                      String        @unique
-  domain                    String?       
+  domain                    String?
   shouldAttachUsersByDomain Boolean       @default(false) @map("should_attach_users_by_domain")
-  avatarUrl                 String?       @map("avatar_url")
+  logoUrl                   String?       @map("logo_url")
   invites                   Invite[]
   members                   Member[]
   projects                  Project[]
