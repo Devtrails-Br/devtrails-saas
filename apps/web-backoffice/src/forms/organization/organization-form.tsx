@@ -1,7 +1,8 @@
 'use client'
 
+import { Separator } from '@root/src/components/refactor/ui/separator'
 import { validateDomain } from '@root/src/utils/validators/validate-domain'
-import { AlertTriangle, Loader2, ThumbsUp } from 'lucide-react'
+import { AlertTriangle, Building, Loader2, ThumbsUp } from 'lucide-react'
 import { useState } from 'react'
 
 import {
@@ -9,6 +10,7 @@ import {
   type OrganizationSchema,
   updateOrganizationAction,
 } from '@/actions/organizations'
+import * as InputFile from '@/components/refactor/form/input-file'
 import {
   Alert,
   AlertDescription,
@@ -70,6 +72,16 @@ export function OrganizationForm({
         </Alert>
       )}
 
+      <Separator />
+      {/* <Label htmlFor="logo">Logo da organização</Label> */}
+      <InputFile.Root className="flex w-full items-center justify-center gap-4">
+        <InputFile.ImagePreview size="base" icon={Building} />
+        <InputFile.Trigger />
+        <InputFile.Control name="logo" defaultValue={initialData?.logoUrl} />
+      </InputFile.Root>
+
+      <Separator />
+
       <div className="space-y-1">
         <Label htmlFor="name">Nome da organização</Label>
         <Input id="name" name="name" defaultValue={initialData?.name} />
@@ -125,13 +137,15 @@ export function OrganizationForm({
         )}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          'Salvar organização'
-        )}
-      </Button>
+      <div>
+        <Button type="submit" className="mt-8 w-full" disabled={isPending}>
+          {isPending ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            'Salvar organização'
+          )}
+        </Button>
+      </div>
     </form>
   )
 }

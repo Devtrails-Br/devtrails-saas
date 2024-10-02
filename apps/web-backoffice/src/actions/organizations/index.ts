@@ -32,6 +32,7 @@ const organizationSchema = z
       .union([z.literal('on'), z.literal('off'), z.boolean()])
       .transform((value) => value === true || value === 'on')
       .default(false),
+    logoUrl: z.string().optional(),
   })
   .refine(
     (data) => {
@@ -58,13 +59,16 @@ export async function createOrganizationAction(data: FormData) {
     return { success: false, message: null, errors }
   }
 
-  const { name, domain, shouldAttachUsersByDomain } = result.data
+  const { name, domain, shouldAttachUsersByDomain, logo } = result.data
+
+  console.log('------ LOGO -----', logo)
 
   try {
     await createOrganization({
       name,
       domain,
       shouldAttachUsersByDomain,
+      logo,
     })
 
     revalidateTag('organizations')
