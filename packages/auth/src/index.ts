@@ -10,21 +10,33 @@ import { User } from './models/user'
 import { permissions } from './permissions'
 import { billingSubject } from './subjects/billing'
 import { inviteSubject } from './subjects/invite'
+import { landingPageSubject } from './subjects/landing-page'
 import { organizationSubject } from './subjects/organization'
 import { projectSubject } from './subjects/project'
+import { sectionSubject } from './subjects/section'
+import { sectionFieldSubject } from './subjects/section-field'
+import { templateSubject } from './subjects/template'
 import { userSubject } from './subjects/user'
 
+export * from './models/landing-page'
 export * from './models/organization'
 export * from './models/project'
+export * from './models/section'
+export * from './models/section-field'
+export * from './models/template'
 export * from './models/user'
 export * from './roles'
 
 const appAbilitiesSchema = z.union([
-  projectSubject,
-  userSubject,
-  organizationSubject,
-  inviteSubject,
   billingSubject,
+  inviteSubject,
+  landingPageSubject,
+  organizationSubject,
+  projectSubject,
+  sectionSubject,
+  sectionFieldSubject,
+  templateSubject,
+  userSubject,
   z.tuple([z.literal('manage'), z.literal('all')]),
 ])
 

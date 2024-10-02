@@ -1,9 +1,18 @@
 import { z } from 'zod'
 
 export const roleSchema = z.union([
+  z.literal('MASTER'),
   z.literal('ADMIN'),
   z.literal('MEMBER'),
   z.literal('BILLING'),
 ])
 
 export type Role = z.infer<typeof roleSchema>
+
+export const userRoleSchema = z.union([
+  z.literal('ADMIN'),
+  z.literal('MEMBER'),
+  z.literal('BILLING'),
+])
+
+export type UserRole = z.infer<typeof userRoleSchema>

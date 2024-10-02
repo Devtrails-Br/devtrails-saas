@@ -16,6 +16,8 @@ export function getCurrentOrg() {
 export async function getCurrentMembership() {
   const org = getCurrentOrg()
 
+  console.log('ORG =>', org)
+
   if (!org) {
     return null
   }
@@ -27,6 +29,8 @@ export async function getCurrentMembership() {
 
 export async function ability() {
   const membership = await getCurrentMembership()
+
+  console.log(membership)
 
   if (!membership) {
     return null
@@ -44,7 +48,7 @@ export async function auth() {
   const token = cookies().get('token')?.value
 
   if (!token) {
-    redirect('/auth/sign-in')
+    redirect('/refactor/home')
   }
 
   try {

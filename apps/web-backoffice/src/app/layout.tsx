@@ -22,7 +22,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={inter.className}>
-      <body className="bg-background px-10">
+      <body className="box-border bg-background">
         <Providers>{children}</Providers>
       </body>
     </html>

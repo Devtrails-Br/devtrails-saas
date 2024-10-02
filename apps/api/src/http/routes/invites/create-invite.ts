@@ -1,4 +1,4 @@
-import { roleSchema } from '@devtrails-saas/auth'
+import { userRoleSchema } from '@devtrails-saas/auth'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -22,7 +22,7 @@ export async function createInvite(app: FastifyInstance) {
           security: [{ bearerAuth: [] }],
           body: z.object({
             email: z.string().email(),
-            role: roleSchema,
+            role: userRoleSchema,
           }),
           params: z.object({
             slug: z.string(),

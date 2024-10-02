@@ -5,13 +5,14 @@ import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
 import {
-    jsonSchemaTransform,
-    serializerCompiler,
-    validatorCompiler,
-    ZodTypeProvider,
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
 import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
+import { authenticateWithGoogle } from './routes/auth/authenticate-with-google'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-password'
 import { createAccount } from './routes/auth/create-account'
 import { getProfile } from './routes/auth/get-profile'
@@ -26,6 +27,8 @@ import { getInvites } from './routes/invites/get-invites'
 import { getPendingInvites } from './routes/invites/get-pending-invites'
 import { rejectInvite } from './routes/invites/reject-invite'
 import { revokeInvite } from './routes/invites/revoke-invite'
+import { createLandingPage } from './routes/landing-pages/create-landing-page'
+import { createLandingPageSectionContent } from './routes/landing-pages/create-section-content'
 import { getMembers } from './routes/members/get-members'
 import { removeMember } from './routes/members/remove-member'
 import { updateMember } from './routes/members/update-member'
@@ -41,6 +44,10 @@ import { deleteProject } from './routes/projects/delete-project'
 import { getProject } from './routes/projects/get-project'
 import { getProjects } from './routes/projects/get-projects'
 import { updateProject } from './routes/projects/update-project'
+import { createSection } from './routes/templates/create-section'
+import { createSectionField } from './routes/templates/create-section-fields'
+import { createTemplate } from './routes/templates/create-template'
+import { getTemplateSection } from './routes/templates/get-template-section'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -83,9 +90,20 @@ app.register(fastifyCors)
 app.register(createAccount)
 app.register(authenticateWithPassword)
 app.register(authenticateWithGithub)
+app.register(authenticateWithGoogle)
 app.register(getProfile)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
+
+// Templates Route
+app.register(createTemplate)
+app.register(createSection)
+app.register(createSectionField)
+app.register(getTemplateSection)
+
+// Landing Pages Routes
+app.register(createLandingPage)
+app.register(createLandingPageSectionContent)
 
 // Orgs Routes
 app.register(createOrganization)

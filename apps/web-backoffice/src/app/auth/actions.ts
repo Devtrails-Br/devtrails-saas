@@ -15,3 +15,28 @@ export async function signInWithGithub() {
 
   redirect(githubSignInUrl.toString())
 }
+
+export async function signInWithGoogle() {
+  const googleSignInUrl = new URL(
+    'o/oauth2/v2/auth',
+    'https://accounts.google.com/',
+  )
+
+  googleSignInUrl.searchParams.append(
+    'redirect_uri',
+    env.GOOGLE_OAUTH_REDIRECT_URI,
+  )
+  googleSignInUrl.searchParams.append('client_id', env.GOOGLE_OAUTH_CLIENT_ID)
+  googleSignInUrl.searchParams.append('access_type', 'offline')
+  googleSignInUrl.searchParams.append('response_type', 'code')
+  googleSignInUrl.searchParams.append('prompt', 'consent')
+
+  const scope = [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email',
+  ].join(' ')
+
+  googleSignInUrl.searchParams.append('scope', scope)
+
+  redirect(googleSignInUrl.toString())
+}
