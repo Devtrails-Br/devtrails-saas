@@ -18,7 +18,6 @@ export async function createOrganization(app: FastifyInstance) {
           tags: ['Organizations'],
           summary: 'Create a new organization',
           security: [{ bearerAuth: [] }],
-          consumes: ['multipart/form-data', 'application/json'],
           body: z.object({
             name: z.string(),
             domain: z.string().nullish(),
@@ -37,6 +36,8 @@ export async function createOrganization(app: FastifyInstance) {
 
         const { name, domain, shouldAttachUsersByDomain, logoUrl } =
           request.body
+
+        console.log('---- ON API ----', logoUrl)
 
         if (domain) {
           const organizationByDomain = await prisma.organization.findFirst({

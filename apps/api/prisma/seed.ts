@@ -42,7 +42,7 @@ async function seed() {
       name: 'Acme Inc (Admin)',
       domain: 'acme.com',
       slug: 'acme-admin',
-      avatarUrl: faker.image.avatarGitHub(),
+      logoUrl: faker.image.avatarGitHub(),
       shouldAttachUsersByDomain: true,
       ownerId: user.id,
       projects: {
@@ -109,7 +109,7 @@ async function seed() {
     data: {
       name: 'Acme Inc (Member)',
       slug: 'acme-member',
-      avatarUrl: faker.image.avatarGitHub(),
+      logoUrl: faker.image.avatarGitHub(),
       shouldAttachUsersByDomain: true,
       ownerId: user.id,
       projects: {
@@ -176,7 +176,7 @@ async function seed() {
     data: {
       name: 'Acme Inc (Billing)',
       slug: 'acme-billing',
-      avatarUrl: faker.image.avatarGitHub(),
+      logoUrl: faker.image.avatarGitHub(),
       shouldAttachUsersByDomain: true,
       ownerId: user.id,
       projects: {

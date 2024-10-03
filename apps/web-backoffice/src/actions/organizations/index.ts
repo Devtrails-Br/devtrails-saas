@@ -59,16 +59,16 @@ export async function createOrganizationAction(data: FormData) {
     return { success: false, message: null, errors }
   }
 
-  const { name, domain, shouldAttachUsersByDomain, logo } = result.data
+  const { name, domain, shouldAttachUsersByDomain, logoUrl } = result.data
 
-  console.log('------ LOGO -----', logo)
+  console.log('------ LOGO -----', logoUrl, '---- result ----', result.data)
 
   try {
     await createOrganization({
       name,
       domain,
       shouldAttachUsersByDomain,
-      logo,
+      logoUrl,
     })
 
     revalidateTag('organizations')

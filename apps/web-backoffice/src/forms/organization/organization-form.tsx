@@ -32,13 +32,21 @@ export function OrganizationForm({
   initialData,
 }: OrganizationFormProps) {
   const [errorMessage, setErrorMessage] = useState('')
+  const [logoUrl, setLogoUrl] = useState<string>(initialData?.logoUrl || '')
 
   const formAction = isUpdating
     ? updateOrganizationAction
     : createOrganizationAction
 
-  const [{ errors, message, success }, handleSubmit, isPending] =
-    useFormState(formAction)
+  const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
+    async (data) => {
+      if (logoUrl) {
+        data.append('logoUrl', logoUrl)
+      }
+
+      return await formAction(data)
+    },
+  )
 
   const handleValidateDomain = (value: string) => {
     const isValidDomain = validateDomain(value)
@@ -73,11 +81,15 @@ export function OrganizationForm({
       )}
 
       <Separator />
-      {/* <Label htmlFor="logo">Logo da organização</Label> */}
       <InputFile.Root className="flex w-full items-center justify-center gap-4">
         <InputFile.ImagePreview size="base" icon={Building} />
         <InputFile.Trigger />
-        <InputFile.Control name="logo" defaultValue={initialData?.logoUrl} />
+        <InputFile.Control />
+        <InputFile.UploadFile
+          id="logoUrl"
+          name="logoUrl"
+          onSuccess={async (fileUrl) => setLogoUrl(fileUrl)}
+        />
       </InputFile.Root>
 
       <Separator />

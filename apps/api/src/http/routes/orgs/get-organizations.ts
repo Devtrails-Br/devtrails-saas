@@ -24,7 +24,7 @@ export async function getOrganizations(app: FastifyInstance) {
                   id: z.string().uuid(),
                   name: z.string(),
                   slug: z.string(),
-                  avatarUrl: z.string().url().nullable(),
+                  logoUrl: z.string().nullable(),
                   role: roleSchema,
                 }),
               ),
@@ -40,7 +40,7 @@ export async function getOrganizations(app: FastifyInstance) {
             id: true,
             name: true,
             slug: true,
-            avatarUrl: true,
+            logoUrl: true,
             members: {
               select: {
                 role: true,
